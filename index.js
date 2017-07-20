@@ -30,13 +30,10 @@ exports.handler = (event, context, callback) => {
         redirectUrl // Redirect URL decided above
       );
 
-      var tenHoursFromNow = (new Date()).getTime()+(10*1000*60*60);
-      console.log("tenHoursFromNow: "+tenHoursFromNow);
       // Set access and refresh tokens in credentials
       oauth2Client.setCredentials({
         access_token: event.accessToken,
-        refresh_token: event.refreshToken,
-        expiry_date: tenHoursFromNow
+        refresh_token: event.refreshToken
       });
 
       // Request refreshed tokens from Google
