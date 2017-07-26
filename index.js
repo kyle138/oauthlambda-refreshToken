@@ -43,6 +43,7 @@ exports.handler = (event, context, callback) => {
             callback("refreshAccessToken error", null);
           } else {
             console.log("tokens: "+JSON.stringify(tokens,null,2));  //DEBUG
+            callback(null, tokens);
           }
         });
 
