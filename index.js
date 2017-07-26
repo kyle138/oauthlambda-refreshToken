@@ -35,7 +35,6 @@ exports.handler = (event, context, callback) => {
           access_token: event.accessToken,
           refresh_token: event.refreshToken
         });
-        console.log("optional expiry_date: "(new Date()).getTime() + (10 * 1000 * 60 * 60));
 
         // Request refreshed tokens from Google
         oauth2Client.refreshAccessToken(function(err, tokens) {
