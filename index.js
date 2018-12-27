@@ -36,6 +36,10 @@ exports.handler = (event, context, callback) => {
           refresh_token: event.refreshToken
         });
 
+        // DEBUG: trying to determine expiry time 
+        var tokenInfo = getTokenInfo(event.accessToken);
+        console.log("tokenInfo:", JSON.stringify(tokenInfo,null,2));  //// DEBUG:
+
         // Request refreshed tokens from Google
 //        oauth2Client.refreshAccessToken(function(err, tokens) {
         oauth2Client.getAccessToken(function(err, tokens) {
