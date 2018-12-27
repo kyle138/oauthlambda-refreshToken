@@ -37,7 +37,10 @@ exports.handler = (event, context, callback) => {
         });
 
         // DEBUG: trying to determine expiry time
-        var tokenInfo = oauth2Client.getTokenInfo(event.accessToken);
+        async token411() {
+          var tokenInfo = await oauth2Client.getTokenInfo(event.accessToken);
+          console.log("tokenInfo:", JSON.stringify(tokenInfo,null,2));  //// DEBUG:
+        }
 
 
         // Request refreshed tokens from Google
@@ -45,11 +48,11 @@ exports.handler = (event, context, callback) => {
         oauth2Client.getAccessToken(function(err, tokens) {
           if(err) {
             console.log("refreshAccessToken error: "+err);
-            console.log("tokenInfo:", JSON.stringify(tokenInfo,null,2));  //// DEBUG:
+            token411();
             callback("refreshAccessToken error", null);
           } else {
             console.log("tokens: "+JSON.stringify(tokens,null,2));  //DEBUG
-            console.log("tokenInfo:", JSON.stringify(tokenInfo,null,2));  //// DEBUG:
+            token411();
             callback(null, tokens);
           }
         });
