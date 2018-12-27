@@ -37,7 +37,8 @@ exports.handler = (event, context, callback) => {
         });
 
         // Request refreshed tokens from Google
-        oauth2Client.refreshAccessToken(function(err, tokens) {
+//        oauth2Client.refreshAccessToken(function(err, tokens) {
+        oauth2Client.getAccessToken(function(err, tokens) {
           if(err) {
             console.log("refreshAccessToken error: "+err);
             callback("refreshAccessToken error", null);
