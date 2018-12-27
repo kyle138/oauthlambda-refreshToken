@@ -37,20 +37,23 @@ exports.handler = (event, context, callback) => {
         });
 
         // DEBUG: trying to determine expiry time
-        var tokenInfo = await oauth2Client.getTokenInfo(event.accessToken);
-        console.log("tokenInfo:", JSON.stringify(tokenInfo,null,2));  //// DEBUG:
+        var tokenInfo = oauth2Client.getTokenInfo(event.accessToken);
+
 
         // Request refreshed tokens from Google
 //        oauth2Client.refreshAccessToken(function(err, tokens) {
         oauth2Client.getAccessToken(function(err, tokens) {
           if(err) {
             console.log("refreshAccessToken error: "+err);
+            console.log("tokenInfo:", JSON.stringify(tokenInfo,null,2));  //// DEBUG:
             callback("refreshAccessToken error", null);
           } else {
             console.log("tokens: "+JSON.stringify(tokens,null,2));  //DEBUG
+            console.log("tokenInfo:", JSON.stringify(tokenInfo,null,2));  //// DEBUG:
             callback(null, tokens);
           }
         });
+
 
       } else {  // if(redirectUrl)
         console.error("Origin: "+event.origin+" is not permitted.");
