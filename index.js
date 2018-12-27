@@ -37,7 +37,7 @@ exports.handler = (event, context, callback) => {
         });
 
         // DEBUG: trying to determine expiry time
-        async token411() {
+        async function token411() {
           var tokenInfo = await oauth2Client.getTokenInfo(event.accessToken);
           console.log("tokenInfo:", JSON.stringify(tokenInfo,null,2));  //// DEBUG:
         }
