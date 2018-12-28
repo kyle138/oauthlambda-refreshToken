@@ -62,9 +62,9 @@ exports.handler = (event, context, callback) => {
                 callback(null, res.data);
               }
             } else {
-              console.log("No refresh");// DEBUG: 
+              console.log("No refresh");// DEBUG:
               token411();
-              callback("No refresh", null)
+              callback(null,"No refresh")
             }
 
           }
