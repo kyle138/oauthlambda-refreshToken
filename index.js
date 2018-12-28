@@ -32,7 +32,6 @@ exports.handler = (event, context, callback) => {
 
         // Set access and refresh tokens in credentials
         oauth2Client.setCredentials({
-          //access_token: event.accessToken,
           refresh_token: event.refreshToken
         });
 
@@ -52,7 +51,7 @@ exports.handler = (event, context, callback) => {
             callback("refreshAccessToken error", null);
           } else {
             console.log("tokens: "+JSON.stringify(tokens,null,2));  //DEBUG
-            console.log("results: "+JSON.stringify(res,null,2));  // DEBUG: 
+            console.log("results: "+JSON.stringify(res,null,2));  // DEBUG:
             token411();
             callback(null, tokens);
           }
