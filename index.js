@@ -54,11 +54,13 @@ exports.handler = (event, context, callback) => {
             callback("refreshAccessToken error", null);
           } else {
             console.log("tokens: "+JSON.stringify(tokens,null,2));  //DEBUG
-            console.log("results: ", util.inspect(res));  // DEBUG:
-//            if(typeof(res.data) === object ) {
+
+            if(results) {
+              console.log("results: ", util.inspect(res));  // DEBUG:
               console.log("res.data: "+JSON.stringify(res.data,null,2));  // DEBUG:
-//            }
-            //token411();
+            } else {
+              token411();
+            }
             callback(null, res.data);
           }
         });
