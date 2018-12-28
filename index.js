@@ -3,6 +3,8 @@
 const {google} = require('googleapis');
 //var OAuth2 = google.auth.OAuth2;
 
+var util = require('util'); // DEBUG:
+
 exports.handler = (event, context, callback) => {
   console.log('Received event:', JSON.stringify(event,null,2)); //DEBUG
   // Check if required fields were populated
@@ -51,7 +53,7 @@ exports.handler = (event, context, callback) => {
             callback("refreshAccessToken error", null);
           } else {
             console.log("tokens: "+JSON.stringify(tokens,null,2));  //DEBUG
-            console.log("results: ", JSON.stringify(res,null,2));  // DEBUG:
+            console.log("results: ", util.inspect(res));  // DEBUG:
             token411();
             callback(null, tokens);
           }
