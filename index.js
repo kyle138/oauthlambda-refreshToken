@@ -57,11 +57,16 @@ exports.handler = (event, context, callback) => {
 
             if(res) {
               console.log("results: ", util.inspect(res));  // DEBUG:
-              console.log("res.data: "+JSON.stringify(res.data,null,2));  // DEBUG:
+              if(res.data) {
+                console.log("res.data: "+JSON.stringify(res.data,null,2));  // DEBUG:
+                callback(null, res.data);
+              }
             } else {
+              console.log("No refresh");// DEBUG: 
               token411();
+              callback("No refresh", null)
             }
-            callback(null, res.data);
+
           }
         });
 
