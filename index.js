@@ -54,6 +54,9 @@ exports.handler = (event, context, callback) => {
           } else {
             console.log("tokens: "+JSON.stringify(tokens,null,2));  //DEBUG
             console.log("results: ", util.inspect(res));  // DEBUG:
+            if(typeof(res.data) === object ) {
+              JSON.stringify(res.data,null,2);  // DEBUG: 
+            }
             token411();
             callback(null, tokens);
           }
