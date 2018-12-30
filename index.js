@@ -56,7 +56,7 @@ exports.handler = (event, context, callback) => {
             console.log("tokens: "+JSON.stringify(tokens,null,2));  //DEBUG
             if(res) {
 //              console.log("results: ", util.inspect(res));  // DEBUG:
-              if(res.hasOwnProperty('data.id_token') {  // We return all of res.data, but it's id_token that we're really after
+              if(res.hasOwnProperty('data.id_token')) {  // We return all of res.data, but it's id_token that we're really after
                 console.log("res.data: "+JSON.stringify(res.data,null,2));  // DEBUG:
                 callback(null, res.data);
               }
