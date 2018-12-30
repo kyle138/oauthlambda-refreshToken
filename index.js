@@ -1,9 +1,6 @@
 'use strict';
 
 const {google} = require('googleapis');
-//var OAuth2 = google.auth.OAuth2;
-
-var util = require('util'); // DEBUG:
 
 exports.handler = (event, context, callback) => {
   console.log('Received event:', JSON.stringify(event,null,2)); //DEBUG
@@ -35,19 +32,11 @@ exports.handler = (event, context, callback) => {
         // Set access and refresh tokens in credentials
         // Optionally, remove access_token to force refresh
         oauth2Client.setCredentials({
-//          access_token: event.accessToken,
+//          access_token: event.accessToken,    // access_token removed to force refresh
           refresh_token: event.refreshToken
         });
 
-        // DEBUG: trying to determine expiry time
-        async function token411() {
-          var tokenInfo = await oauth2Client.getTokenInfo(event.accessToken);
-          console.log("tokenInfo:", JSON.stringify(tokenInfo,null,2));  //// DEBUG:
-        }
-
-
         // Request refreshed tokens from Google
-//        oauth2Client.refreshAccessToken(function(err, tokens) {
         oauth2Client.getAccessToken(function(err, tokens, res) {
           if(err) {
             console.log("getAccessToken error: "+err);
@@ -55,18 +44,17 @@ exports.handler = (event, context, callback) => {
           } else {
             console.log("tokens: "+JSON.stringify(tokens,null,2));  //DEBUG
             if(res && res.data) {
-//              console.log("results: ", util.inspect(res));  // DEBUG:
+              //console.log("results: ", util.inspect(res));  // DEBUG:
               if(res.data.hasOwnProperty('id_token')) {  // We return all of res.data, but it's id_token that we're really after
                 console.log("res.data: "+JSON.stringify(res.data,null,2));  // DEBUG:
                 callback(null, res.data);
               }
-            } else {  // Only token returned, no results.
+            } else {  // Only token returned, no res
               console.log("No refresh");// DEBUG:
-              callback(null,"No refresh")
+              callback("No refresh",null);
             } // if(res)
           } // if(err)
         }); // oauth2Client.getAccessToken()
-
 
       } else {  // if(redirectUrl)
         console.error("Origin: "+event.origin+" is not permitted.");
