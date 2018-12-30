@@ -35,7 +35,7 @@ exports.handler = (event, context, callback) => {
         // Set access and refresh tokens in credentials
         // Optionally, remove access_token to force refresh
         oauth2Client.setCredentials({
-          access_token: event.accessToken,
+//          access_token: event.accessToken,
           refresh_token: event.refreshToken
         });
 
