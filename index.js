@@ -33,8 +33,9 @@ exports.handler = (event, context, callback) => {
         );
 
         // Set access and refresh tokens in credentials
+        // Optionally, remove access_token to force refresh
         oauth2Client.setCredentials({
-//          access_token: event.accessToken,    // Remove access_token to force refresh
+          access_token: event.accessToken,
           refresh_token: event.refreshToken
         });
 
@@ -49,26 +50,22 @@ exports.handler = (event, context, callback) => {
 //        oauth2Client.refreshAccessToken(function(err, tokens) {
         oauth2Client.getAccessToken(function(err, tokens, res) {
           if(err) {
-            console.log("refreshAccessToken error: "+err);
-            token411();
-            callback("refreshAccessToken error", null);
+            console.log("getAccessToken error: "+err);
+            callback("getAccessToken error", null);
           } else {
             console.log("tokens: "+JSON.stringify(tokens,null,2));  //DEBUG
-
             if(res) {
-              console.log("results: ", util.inspect(res));  // DEBUG:
-              if(res.data) {
+//              console.log("results: ", util.inspect(res));  // DEBUG:
+              if(res.hasOwnProperty('data.id_token') {  // We return all of res.data, but it's id_token that we're really after
                 console.log("res.data: "+JSON.stringify(res.data,null,2));  // DEBUG:
                 callback(null, res.data);
               }
-            } else {
+            } else {  // Only token returned, no results.
               console.log("No refresh");// DEBUG:
-              token411();
               callback(null,"No refresh")
-            }
-
-          }
-        });
+            } // if(res)
+          } // if(err)
+        }); // oauth2Client.getAccessToken()
 
 
       } else {  // if(redirectUrl)
